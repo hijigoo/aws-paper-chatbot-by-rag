@@ -128,6 +128,7 @@ def convert_pdf_to_image(bucket_name, filename):
         return image
     except Exception as e:
         print("To show images is s3_upload available only in pdf documents.")
+        print(e)
         pass
 
 
@@ -142,6 +143,7 @@ def extract_images(doc_image, doc_blocks, filename, bucket_name):
 
     s3_urls = []
     s3_file_prefix = filename.replace(".", "_")
+    base_filename = filename.replace(".", "_")
     seq = 0
     for page_num, key in enumerate(doc_blocks):
         s3_prefix = f'{figure_prefix}/{s3_file_prefix}/{page_num}'
@@ -151,7 +153,7 @@ def extract_images(doc_image, doc_blocks, filename, bucket_name):
         for block in doc_blocks[key]:
 
             if block['BlockType'] == 'LAYOUT_FIGURE':
-                crop_image_name = f"{filename}-{seq}.png"
+                crop_image_name = f"{base_filename}-{seq}.png"
                 local_image_path = f"{local_target_path}/{crop_image_name}"
                 image_helper.image_crop(doc_image[page_num], block['Geometry']['BoundingBox'], local_image_path)
 

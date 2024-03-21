@@ -53,8 +53,9 @@ async def upload_document(file: UploadFile, document: str, chunk: int, overlap: 
                                   chunk_size=chunk,
                                   chunk_overlap=overlap)
 
-    analyzer.upload_document(filepath=filepath, filename=document)
-    figure_s3_urls = analyzer.upload_all_figures(filename=document)
+    filename = f"{document}.pdf"
+    analyzer.upload_document(filepath=filepath, filename=filename)
+    figure_s3_urls = analyzer.upload_all_figures(filename=filename)
 
     return {"status": 200, "figure_s3_urls": figure_s3_urls}
 
