@@ -9,5 +9,5 @@ aiofiles==23.1.0
 requests-aws4auth==1.2.3
 python-multipart==0.0.6
 pdfplumber==0.10.3
-pdf2image
-pillow
+pdf2image==1.17.0
+pillow==10.2.0
